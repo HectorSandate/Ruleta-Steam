@@ -1,70 +1,150 @@
-# Getting Started with Create React App
+# 🎮 Ruleta de Juegos de Steam
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Una aplicación web interactiva que te ayuda a decidir qué juego jugar de tu biblioteca de Steam mediante una ruleta animada.
 
-## Available Scripts
 
-In the project directory, you can run:
+## 🚀 Características
 
-### `npm start`
+- ✅ Ruleta animada con tus juegos de Steam
+- ✅ Interfaz intuitiva y responsive
+- ✅ Visualización de hasta 20 juegos en la ruleta
+- ✅ Animación suave de giro
+- ✅ Botón directo para abrir el juego en Steam
+- ✅ Lista completa de tu biblioteca
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📋 Cómo obtener tus juegos de Steam
 
-### `npm test`
+### Paso 1: Obtener tu Steam API Key
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Ve a [https://steamcommunity.com/dev/apikey](https://steamcommunity.com/dev/apikey)
+2. Inicia sesión con tu cuenta de Steam
+3. En "Domain Name" escribe: `localhost`
+4. Acepta los términos y haz clic en **Register**
+5. Copia tu **API Key** (ejemplo: `EAFBA9AF29B20E1F90C1937E745375EC`)
 
-### `npm run build`
+### Paso 2: Obtener tu Steam ID64
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Opción A: Si tu perfil es público con números
+1. Ve a tu perfil de Steam en el navegador
+2. Observa la URL: `steamcommunity.com/profiles/76561198XXXXXXXXX`
+3. Los números después de `/profiles/` son tu **Steam ID64**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Opción B: Si tu perfil tiene URL personalizada
+1. Tu URL se verá así: `steamcommunity.com/id/tunombre`
+2. Ve a [https://steamid.io/](https://steamid.io/)
+3. Pega tu URL del perfil
+4. Copia el **steamID64** que te muestra
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Paso 3: Generar el JSON de tus juegos
 
-### `npm run eject`
+1. Abre tu navegador web
+2. Copia esta URL y reemplaza los valores:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=TU_API_KEY&steamid=TU_STEAM_ID&format=json&include_appinfo=1
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Ejemplo completo:**
+```
+https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=EAFBA9AF29B20E1F90C1937E745375EC&steamid=76561198824328139&format=json&include_appinfo=1
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. Pega la URL en tu navegador y presiona Enter
+4. Verás un texto JSON similar a esto:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```json
+{
+  "response": {
+    "game_count": 97,
+    "games": [
+      {
+        "appid": 730,
+        "name": "Counter-Strike 2",
+        "playtime_forever": 12345
+      },
+      ...
+    ]
+  }
+}
+```
 
-## Learn More
+5. **Copia TODO el texto** (Ctrl+A, Ctrl+C)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Paso 4: Usar la ruleta
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Abre la aplicación de la ruleta
+2. Elige una opción:
+   - **Opción 1:** Pega el JSON directamente en el cuadro de texto
+   - **Opción 2:** Guarda el JSON como archivo `.json` y súbelo
 
-### Code Splitting
+3. ¡Listo! Tus juegos se cargarán automáticamente
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## 💻 Instalación y Desarrollo
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Requisitos previos
+- Node.js 20.x o superior
+- npm 10.x o superior
 
-### Making a Progressive Web App
+### Instalación
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+# Clona el repositorio
+git clone https://github.com/tuusuario/ruleta-steam.git
+cd ruleta-steam
 
-### Advanced Configuration
+# Instala las dependencias
+npm install
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+# Inicia el servidor de desarrollo
+npm start
+```
 
-### Deployment
+La aplicación se abrirá en `http://localhost:3000`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Construir para producción
 
-### `npm run build` fails to minify
+```bash
+npm run build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Los archivos de producción estarán en la carpeta `build/`
+
+---
+
+## 🛠️ Tecnologías utilizadas
+
+- **React** - Framework de JavaScript
+- **Tailwind CSS** - Estilos y diseño
+- **Lucide React** - Iconos
+- **Steam Web API** - Obtención de datos de juegos
+
+---
+
+## 🔒 Privacidad y Seguridad
+
+- Tu API Key y Steam ID solo se usan localmente en tu navegador
+- No se envían datos a ningún servidor externo
+- Toda la información permanece en tu dispositivo
+- El JSON de Steam es de solo lectura y no puede modificar tu cuenta
+
+---
+
+## ❓ Preguntas Frecuentes
+
+### ¿Por qué no veo todos mis juegos en la ruleta?
+La ruleta muestra hasta 20 juegos para mantener la legibilidad. La lista completa aparece debajo de la ruleta.
+
+### ¿Puedo usar esto sin Steam?
+No, esta aplicación está diseñada específicamente para bibliotecas de Steam.
+
+### ¿Es seguro compartir mi API Key?
+No, nunca compartas tu API Key públicamente. Trátala como una contraseña.
+
+### ¿Funciona en móviles?
+Sí, la aplicación es completamente responsive y funciona en dispositivos móviles.
+
+
